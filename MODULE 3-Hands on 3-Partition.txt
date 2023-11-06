@@ -1,0 +1,91 @@
+dbadmin=> create schema cse;
+CREATE SCHEMA
+dbadmin=> create table cse.test(tdate date not null, tsymbol varchar(10)) partition by extract(year from tdate);
+WARNING 6100:  Using PARTITION expression that returns a Numeric value
+HINT:  This PARTITION expression may cause too many data partitions.  Use of an expression that returns a more accurate value, such as a regular VARCHAR or INT, is encouraged
+CREATE TABLE
+dbadmin=> insert into cse.test values('01/01/2010','A');
+ OUTPUT
+--------
+      1
+(1 row)
+
+dbadmin=> insert into cse.test values('01/01/2011','A');
+ OUTPUT
+--------
+      1
+(1 row)
+
+dbadmin=> insert into cse.test values('01/01/2012','A');
+ OUTPUT
+--------
+      1
+(1 row)
+
+dbadmin=> insert into cse.test values('01/10/2012','A');
+ OUTPUT
+--------
+      1
+(1 row)
+
+dbadmin=> insert into cse.test values('01/10/2013','A');
+ OUTPUT
+--------
+      1
+(1 row)
+
+dbadmin=> insert into cse.test values('01/10/2017','A');
+ OUTPUT
+--------
+      1
+(1 row)
+
+dbadmin=>select * from partitions where table_schema='cse';
+ partition_key | projection_id | table_schema | projection_name | ros_id | ros_size_bytes | ros_row_count | node_name | deleted_row_count | location_label
+---------------+---------------+--------------+-----------------+--------+----------------+---------------+-----------+-------------------+----------------
+(0 rows)
+Note:partioning happended at ROS and we have inserted to WOS. On moveout, data will be moved from WOS to ROS.
+Either wait for 5 mins for moveout to happen automatically or explicitly perform moveout using below command
+ 
+dbadmin=>SELECT DO_TM_TASK('MOVEOUT');
+
+dbadmin=>select partition_key,projection_name,ros_row_count,node_name from partitions where table_schema='cse' and projection_name='test_b0';
+ partition_key | projection_name | ros_row_count |    node_name
+---------------+-----------------+---------------+-----------------
+ 2012          | test_b0         |             1 | v_nhdb_node0001
+ 2017          | test_b0         |             1 | v_nhdb_node0002
+ 2013          | test_b0         |             1 | v_nhdb_node0002
+ 2011          | test_b0         |             1 | v_nhdb_node0002
+ 2012          | test_b0         |             1 | v_nhdb_node0003
+ 2010          | test_b0         |             1 | v_nhdb_node0003
+
+insert 3 more rows to corresponding to year 2012 and perform move out
+ 
+dbadmin=>select partition_key,projection_name,ros_row_count,node_name from partitions where table_schema='cse' and projection_name='test_b0';
+ partition_key | projection_name | ros_row_count |    node_name
+---------------+-----------------+---------------+-----------------
+ 2012          | test_b0         |             1 | v_nhdb_node0001
+ 2012          | test_b0         |             2 | v_nhdb_node0001
+ 2017          | test_b0         |             1 | v_nhdb_node0002
+ 2013          | test_b0         |             1 | v_nhdb_node0002
+ 2011          | test_b0         |             1 | v_nhdb_node0002
+ 2012          | test_b0         |             1 | v_nhdb_node0003
+ 2010          | test_b0         |             1 | v_nhdb_node0003
+(7 rows)
+
+note: On node 1 the rows corresponds to 2012 are stored on different containers.
+on merge out they will be combined into a single container as shown below.
+perform explicit mergeout
+
+dbadmin=>SELECT DO_TM_TASK('MERGEOUT');
+
+dbadmin=> select partition_key,projection_name,ros_row_count,node_name from partitions where table_schema='cse' and projection_name='test_b0';
+ partition_key | projection_name | ros_row_count |    node_name
+---------------+-----------------+---------------+-----------------
+ 2012          | test_b0         |             3 | v_nhdb_node0001
+ 2017          | test_b0         |             1 | v_nhdb_node0002
+ 2013          | test_b0         |             1 | v_nhdb_node0002
+ 2011          | test_b0         |             1 | v_nhdb_node0002
+ 2012          | test_b0         |             1 | v_nhdb_node0003
+ 2010          | test_b0         |             1 | v_nhdb_node0003
+(6 rows)

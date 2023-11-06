@@ -1,0 +1,432 @@
+login as: hp1
+hp1@10.10.26.11's password:
+Welcome to Ubuntu 14.04.5 LTS (GNU/Linux 4.4.0-31-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+0 packages can be updated.
+0 updates are security updates.
+
+Last login: Fri Mar 25 12:05:26 2022 from 172.17.2.226
+
+---Now the linux of the remote server is connected, to connect the vertica DB type the path name as given below
+
+hp1@hp1-PowerEdge-R630:~$ /opt/vertica/bin/vsql -Udbadmin -wvertica123
+Welcome to vsql, the Vertica Analytic Database interactive terminal.
+
+Type:  \h or \? for help with vsql commands
+       \g or terminate with semicolon to execute query
+       \q to quit
+========
+
+dbadmin=>
+
+dbadmin=> \h
+See the Vertica Programmer's Guide for information on available commands.
+
+General
+  \c[onnect] [DBNAME|- [USER]]
+                 connect to new database (currently "dbadmin")
+  \cd [DIR]      change the current working directory
+  \q             quit vsql
+  \set [NAME [VALUE]]
+                 set internal variable, or list all if no parameters
+  \timing [on|off]
+                 toggle timing of commands, or explicitly turn it on or off (cur
+rently off)
+  \unset NAME    unset (delete) internal variable
+  \! [COMMAND]   execute command in shell or start interactive shell
+  \password [USER]
+                 change user's password
+
+Query Buffer
+  \e [FILE]      edit the query buffer (or file) with external editor
+  \g             send query buffer to server
+  \g FILE        send query buffer to server and results to file
+  \g | COMMAND   send query buffer to server and pipe results to command
+  \p             show the contents of the query buffer
+  \r             reset (clear) the query buffer
+  \s [FILE]      display history or save it to file
+  \w FILE        write query buffer to file
+
+Input/Output
+  \echo [STRING] write string to standard output
+  \i FILE        execute commands from file
+  \o FILE        send all query results to file
+  \o | COMMAND   pipe all query results to command
+  \o             close query-results file or pipe
+  \qecho [STRING]
+                 write string to query output stream (see \o)
+==========
+dbadmin=> \?
+See the Vertica Programmer's Guide for information on available commands.
+
+General
+  \c[onnect] [DBNAME|- [USER]]
+                 connect to new database (currently "dbadmin")
+  \cd [DIR]      change the current working directory
+  \q             quit vsql
+  \set [NAME [VALUE]]
+                 set internal variable, or list all if no parameters
+  \timing [on|off]
+                 toggle timing of commands, or explicitly turn it on or off (currently off)
+  \unset NAME    unset (delete) internal variable
+  \! [COMMAND]   execute command in shell or start interactive shell
+  \password [USER]
+                 change user's password
+
+Query Buffer
+  \e [FILE]      edit the query buffer (or file) with external editor
+  \g             send query buffer to server
+  \g FILE        send query buffer to server and results to file
+  \g | COMMAND   send query buffer to server and pipe results to command
+  \p             show the contents of the query buffer
+  \r             reset (clear) the query buffer
+  \s [FILE]      display history or save it to file
+  \w FILE        write query buffer to file
+
+Input/Output
+  \echo [STRING] write string to standard output
+  \i FILE        execute commands from file
+  \o FILE        send all query results to file
+  \o | COMMAND   pipe all query results to command
+  \o             close query-results file or pipe
+  \qecho [STRING]
+                 write string to query output stream (see \o)
+
+Informational
+  \d [PATTERN]   describe tables (list tables if no argument is supplied)
+                 PATTERN may include system schema name, e.g. v_catalog.*
+  \df [PATTERN]  list functions
+  \dj [PATTERN]  list projections
+  \dn [PATTERN]  list schemas
+  \dp [PATTERN]  list table access privileges
+  \ds [PATTERN]  list sequences
+===============
+
+dbadmin=> \dj
+                                       List of projections
+     Schema      |                  Name                   |  Owner  |      Node       | Comment
+-----------------+-----------------------------------------+---------+-----------------+---------
+ "115"           | mech_DBD_1_seg_sou_b0                   | dbadmin |                 |
+ "115"           | mech_DBD_1_seg_sou_b1                   | dbadmin |                 |
+ A00000001       | stu_b0                                  | dbadmin |                 |
+ A00000001       | stu_b1                                  | dbadmin |                 |
+ A0000000123     | proj_A1                                 | dbadmin | v_nhdb_node0003 |
+ A0000000123     | proj_A1                                 | dbadmin | v_nhdb_node0002 |
+ A0000000123     | proj_A1                                 | dbadmin | v_nhdb_node0001 |
+ A0000000123     | table1_b0                               | dbadmin |                 |
+ A0000000123     | table1_b1                               | dbadmin |                 |
+ A0000001        | stu_b0                                  | dbadmin |                 |
+ A0000001        | stu_b1                                  | dbadmin |                 |
+ A00000011       | tab1_b0                                 | dbadmin |                 |
+ A00000011       | tab1_b1                                 | dbadmin |                 |
+ A000001         | stu_b0                                  | dbadmin |                 |
+ A000001         | stu_b1                                  | dbadmin |                 |
+ A00001          | stu_b0                                  | dbadmin |                 |
+ A00001          | stu_b1                                  | dbadmin |                 |
+ A000011111      | table1_b0                               | dbadmin |                 |
+ A000011111      | table1_b1                               | dbadmin |                 |
+ A000011111      | table2_b0                               | dbadmin |                 |
+ A000011111      | table2_b1                               | dbadmin |                 |
+ A000011111      | table3_b0                               | dbadmin |                 |
+ A000011111      | table3_b1                               | dbadmin |                 |
+ A000011111      | table5_b0                               | dbadmin |                 |
+ A000011111      | table5_b1                               | dbadmin |                 |
+ A000011111      | test_b0                                 | dbadmin |                 |
+ A000011111      | test_b1                                 | dbadmin |                 |
+ A0001           | Mani_b0                                 | dbadmin |                 |
+ A0001           | Mani_b1                                 | dbadmin |                 |
+ A0001           | aim_b0                                  | dbadmin |                 |
+ A0001           | aim_b1                                  | dbadmin |                 |
+ A0001           | ex_DBD_1_seg_AAA112_b0                  | dbadmin |                 |
+ A0001           | ex_DBD_1_seg_AAA112_b1                  | dbadmin |                 |
+ A0001           | ex_DBD_5_seg_AAA111_b0                  | dbadmin |                 |
+ A0001           | ex_DBD_5_seg_AAA111_b1                  | dbadmin |                 |
+ A0001           | gag_b0                                  | dbadmin |                 |
+ A0001           | gag_b1                                  | dbadmin |                 |
+ A0001           | pup_b0                                  | dbadmin |                 |
+ A0001           | pup_b1                                  | dbadmin |                 |
+ A0001           | source123_b0                            | dbadmin |                 |
+========
+
+dbadmin=> create schema A0123;
+CREATE SCHEMA
+dbadmin=> create table A0123.student(usn number(2),name varchar(10));
+CREATE TABLE
+========
+
+--To verify the projection is created for the student:
+dbadmin=> \dj
+                                       List of projections
+     Schema      |                  Name                   |  Owner  |      Node       | Comment
+-----------------+-----------------------------------------+---------+-----------------+---------
+ "115"           | mech_DBD_1_seg_sou_b0                   | dbadmin |                 |
+ "115"           | mech_DBD_1_seg_sou_b1                   | dbadmin |                 |
+ A00000001       | stu_b0                                  | dbadmin |                 |
+ A00000001       | stu_b1                                  | dbadmin |                 |
+ A0000000123     | proj_A1                                 | dbadmin | v_nhdb_node0003 |
+ A0000000123     | proj_A1                                 | dbadmin | v_nhdb_node0002 |
+ A0000000123     | proj_A1                                 | dbadmin | v_nhdb_node0001 |
+ A0000000123     | table1_b0                               | dbadmin |                 |
+ A0000000123     | table1_b1                               | dbadmin |                 |
+ A0000001        | stu_b0                                  | dbadmin |                 |
+ A0000001        | stu_b1                                  | dbadmin |                 |
+ A00000011       | tab1_b0                                 | dbadmin |                 |
+ A00000011       | tab1_b1                                 | dbadmin |                 |
+ A000001         | stu_b0                                  | dbadmin |                 |
+ A000001         | stu_b1                                  | dbadmin |                 |
+ A00001          | stu_b0                                  | dbadmin |                 |
+ A00001          | stu_b1                                  | dbadmin |                 |
+ A000011111      | table1_b0                               | dbadmin |                 |
+ A000011111      | table1_b1                               | dbadmin |                 |
+ A000011111      | table2_b0                               | dbadmin |                 |
+ A000011111      | table2_b1                               | dbadmin |                 |
+ A000011111      | table3_b0                               | dbadmin |                 |
+ A000011111      | table3_b1                               | dbadmin |                 |
+ A000011111      | table5_b0                               | dbadmin |                 |
+ A000011111      | table5_b1                               | dbadmin |                 |
+ A000011111      | test_b0                                 | dbadmin |                 |
+ A000011111      | test_b1                                 | dbadmin |                 |
+ A0001           | Mani_b0                                 | dbadmin |                 |
+ A0001           | Mani_b1                                 | dbadmin |                 |
+ A0001           | aim_b0                                  | dbadmin |                 |
+ A0001           | aim_b1                                  | dbadmin |                 |
+ A0001           | ex_DBD_1_seg_AAA112_b0                  | dbadmin |                 |
+ A0001           | ex_DBD_1_seg_AAA112_b1                  | dbadmin |                 |
+ A0001           | ex_DBD_5_seg_AAA111_b0                  | dbadmin |                 |
+ A0001           | ex_DBD_5_seg_AAA111_b1                  | dbadmin |                 |
+ A0001           | gag_b0                                  | dbadmin |                 |
+ A0001           | gag_b1                                  | dbadmin |                 |
+ A0001           | pup_b0                                  | dbadmin |                 |
+ A0001           | pup_b1                                  | dbadmin |                 |
+ A0001           | source123_b0                            | dbadmin |                 |
+
+
+=========
+
+--To insert values so that we can check the created projection
+dbadmin=> insert into A0123.student values(1,'Raju');
+ OUTPUT
+--------
+      1
+(1 row)
+--now we can see the buddy projection(segment the records and store in different node) by typing \dj
+ A0123           | student_b0                              | dbadmin |                 |
+ A0123           | student_b1                              | dbadmin |                 |
+==============
+dbadmin=> select * from A0123.student;
+ usn | name
+-----+------
+   1 | Raju
+(1 row)
+dbadmin=> select * from A0123.student_b0;
+ usn | name
+-----+------
+   1 | Raju
+(1 row)
+
+dbadmin=> select * from A0123.student_b1;
+ usn | name
+-----+------
+   1 | Raju
+(1 row)
+========
+
+-- create projection Manually
+
+dbadmin=> create table A0123.hello(eno number(2), name varchar(10), age number(2), dno number(2));
+CREATE TABLE
+dbadmin=> insert into A0123.hello values(1,'Rahul',21,3);
+ OUTPUT
+--------
+      1
+(1 row)
+dbadmin=> insert into A0123.hello values(3,'Priya',23,3);
+ OUTPUT
+--------
+      1
+(1 row)
+dbadmin=> insert into A0123.hello values(2,'Varshini',22,1);
+ OUTPUT
+--------
+      1
+(1 row)
+dbadmin=> select * from A0123.hello_b0;
+ eno |   name   | age | dno
+-----+----------+-----+-----
+   2 | Varshini |  22 |   1
+   3 | Priya    |  23 |   3
+   1 | Rahul    |  21 |   3
+(3 rows)
+
+=======
+ -- The above is the default buddy(segmented) projection .. Now we can create the projection with segmentation and replication
+ --Now will create a projection with replication and K- Safety is 1.
+
+dbadmin=> create projection A0123.hello_m1(eno encoding deltaval, age encoding RLE) as select eno,age from A0123.hello order by eno ksafe 1;
+WARNING 4468:  Projection <A0123.hello_m1> is not available for query processing. Execute the select start_refresh() function to copy data into this projection.
+          The projection must have a sufficient number of buddy projections and all nodes must be up before starting a refresh
+CREATE PROJECTION
+
+dbadmin=> \dj
+                                       List of projections
+     Schema      |                  Name                   |  Owner  |      Node       | Comment
+-----------------+-----------------------------------------+---------+-----------------+---------
+
+ A0123           | hello_m1                                | dbadmin | v_nhdb_node0003 |
+ A0123           | hello_m1                                | dbadmin | v_nhdb_node0002 |
+ A0123           | hello_m1                                | dbadmin | v_nhdb_node0001 |
+=======
+
+
+--we can view by selectiong projections
+
+dbadmin=> select * from projections;
+ projection_schema_id | projection_schema |   projection_id   |         projection_name         |     projection_basename      |     owner_id      | owner_name |  ancho
+r_table_id  |   anchor_table_name   | node_id | node_name | is_prejoin | created_epoch |          create_type          | verified_fault_tolerance | is_up_to_date | has_
+statistics | is_segmented |                                                                segment_expression
+     |                                    segment_range                                     | is_super_projection | is_key_constraint_projection | has_expressions | is_
+aggregate_projection | aggregate_type
+----------------------+-------------------+-------------------+---------------------------------+------------------------------+-------------------+------------+-------
+------------+-----------------------+---------+-----------+------------+---------------+-------------------------------+--------------------------+---------------+-----
+-----------+--------------+---------------------------------------------------------------------------------------------------------------------------------------------
+-----+--------------------------------------------------------------------------------------+---------------------+------------------------------+-----------------+----
+---------------------+----------------
+    45035996273704978 | public            | 45035996279627230 | test_table_b0                   | test_table                   | 45035996273704962 | dbadmin    | 450359
+96273707640 | test_table            |       0 |           | f          |            17 | DELAYED CREATION              |                        1 | t             | f
+           | t            | hash(test_table.c)
+     | implicit range: v_nhdb_node0001[33.3%] v_nhdb_node0002[33.3%] v_nhdb_node0003[33.3%] | t                   | f                            | f               | f
+                     |
+    45035996273704978 | public            | 45035996279627240 | test_table_b1                   | test_table                   | 45035996273704962 | dbadmin    | 450359
+96273707640 | test_table            |       0 |           | f          |            17 | DELAYED CREATION              |                        1 | t             | f
+           | t            | hash(test_table.c)
+     | implicit range: v_nhdb_node0002[33.3%] v_nhdb_node0003[33.3%] v_nhdb_node0001[33.3%] | t                   | f                            | f               | f
+                     |
+    45035996273704978 | public            | 45035996280200976 | fact_b0                         | fact                         | 45035996273704962 | dbadmin    | 450359
+96280200562 | fact                  |       0 |           | f          |          2162 | DELAYED CREATION              |                        1 | t             | f
+           | t            | hash(fact.tdate, fact.tsymbol)
+     | implicit range: v_nhdb_node0001[33.3%] v_nhdb_node0002[33.3%] v_nhdb_node0003[33.3%] | t                   | f                            | f               | f
+                     |
+    45035996273704978 | public            | 45035996280200988 | fact_b1                         | fact                         | 45035996273704962 | dbadmin    | 450359
+96280200562 | fact                  |       0 |           | f          |          2162 | DELAYED CREATION              |                        1 | t             | f
+           | t            | hash(fact.tdate, fact.tsymbol)
+     | implicit range: v_nhdb_node0002[33.3%] v_nhdb_node0003[33.3%] v_nhdb_node0001[33.3%] | t                   | f                            | f               | f
+                     |
+    45035996273704978 | public            | 45035996293098424 | values10_b0                     | values10                     | 45035996273704962 | dbadmin    | 450359
+96293098306 | values10              |       0 |           | f          |          2336 | DELAYED CREATION              |                        1 | t             | f
+           | t            | hash(values10.a, values10.b)
+     | implicit range: v_nhdb_node0001[33.3%] v_nhdb_node0002[33.3%] v_nhdb_node0003[33.3%] | t                   | f                            | f               | f
+                     |
+    45035996273704978 | public            | 45035996293098436 | values10_b1                     | values10                     | 45035996273704962 | dbadmin    | 450359
+96293098306 | values10              |       0 |           | f          |          2336 | DELAYED CREATION              |                        1 | t             | f
+           | t            | hash(values10.a, values10.b)
+     | implicit range: v_nhdb_node0002[33.3%] v_nhdb_node0003[33.3%] v_nhdb_node0001[33.3%] | t                   | f                            | f               | f
+                     |
+    45035996273704978 | public            | 45035996293098500 | VALUES5100_b0                   | VALUES5100                   | 45035996273704962 | dbadmin    | 450359
+96293098210 | VALUES5100            |       0 |           | f          |          2336 | DELAYED CREATION              |                        1 | t             | f
+           | t            | hash(VALUES5100.a, VALUES5100.b)
+
+========
+dbadmin=> select projection_name, projection_schema, node_name from projections where projection_schema='A0123' and anchor_table_name='hello';
+ projection_name | projection_schema |    node_name
+-----------------+-------------------+-----------------
+ hello_b0        | A0123             |
+ hello_b1        | A0123             |
+ hello_m1        | A0123             | v_nhdb_node0001
+ hello_m1        | A0123             | v_nhdb_node0002
+ hello_m1        | A0123             | v_nhdb_node0003
+(5 rows)
+
+
+
+=======
+--Now will create a projection with replication and K- Safety is 0
+
+dbadmin=> create projection A0123.hello_m(eno encoding deltaval, age encoding RLE) as select eno,age from A0123.hello order by eno ksafe 0;
+WARNING 4468:  Projection <A0123.hello_m_b0> is not available for query processing. Execute the select start_refresh() function to copy data into this projection.
+          The projection must have a sufficient number of buddy projections and all nodes must be up before starting a refresh
+WARNING 4468:  Projection <A0123.hello_m_b1> is not available for query processing. Execute the select start_refresh() function to copy data into this projection.
+          The projection must have a sufficient number of buddy projections and all nodes must be up before starting a refresh
+CREATE PROJECTION
+
+====
+--we are doing projection replication with k safe 0,it is contradictory so buddy projection is created
+dbadmin=> select projection_name, projection_schema, node_name from projections where projection_schema='A0123' and anchor_table_name='hello';
+ projection_name | projection_schema |    node_name
+-----------------+-------------------+-----------------
+ hello_b0        | A0123             |
+ hello_b1        | A0123             |
+ hello_m1        | A0123             | v_nhdb_node0001
+ hello_m1        | A0123             | v_nhdb_node0002
+ hello_m1        | A0123             | v_nhdb_node0003
+ hello_m_b0      | A0123             |
+ hello_m_b1      | A0123             |
+(7 rows)
+====
+
+
+--sementation projection creation(specify segmentation part of query after order by clause)
+--that means it will create buddy projection
+
+dbadmin=> create projection A0123.hello_m2(eno encoding deltaval, age encoding RLE) as select eno,age from A0123.hello order by eno segmented by hash(eno) all nodes ksafe 1;
+WARNING 4468:  Projection <A0123.hello_m2_b0> is not available for query processing. Execute the select start_refresh() function to copy data into this projection.
+          The projection must have a sufficient number of buddy projections and all nodes must be up before starting a refresh
+WARNING 4468:  Projection <A0123.hello_m2_b1> is not available for query processing. Execute the select start_refresh() function to copy data into this projection.
+          The projection must have a sufficient number of buddy projections and all nodes must be up before starting a refresh
+CREATE PROJECTION
+======
+
+dbadmin=> select projection_name, projection_schema, node_name from projections where projection_schema='A0123' and anchor_table_name='hello';
+ projection_name | projection_schema |    node_name
+-----------------+-------------------+-----------------
+ hello_b0        | A0123             |
+ hello_b1        | A0123             |
+ hello_m1        | A0123             | v_nhdb_node0001
+ hello_m1        | A0123             | v_nhdb_node0002
+ hello_m1        | A0123             | v_nhdb_node0003
+ hello_m_b0      | A0123             |
+ hello_m_b1      | A0123             |
+ hello_m2_b0     | A0123             |
+ hello_m2_b1     | A0123             |
+(9 rows)
+
+
+======
+-- sementation projection creation with ksafe 0, creating manually by specifying different projection name
+
+-- since ksafe is 0, here no copy will be generated for m3 projection
+
+dbadmin=> create projection A0123.hello_m3(eno encoding deltaval, age encoding RLE) as select eno,age from A0123.hello order by eno segmented by hash(eno) all nodes ksafe 0;
+WARNING 4468:  Projection <A0123.hello_m3> is not available for query processing. Execute the select start_refresh() function to copy data into this projection.
+          The projection must have a sufficient number of buddy projections and all nodes must be up before starting a refresh
+CREATE PROJECTION
+dbadmin=> select projection_name, projection_schema, node_name from projections where projection_schema='A0123' and anchor_table_name='hello';
+ projection_name | projection_schema |    node_name
+-----------------+-------------------+-----------------
+ hello_b0        | A0123             |
+ hello_b1        | A0123             |
+ hello_m1        | A0123             | v_nhdb_node0001
+ hello_m1        | A0123             | v_nhdb_node0002
+ hello_m1        | A0123             | v_nhdb_node0003
+ hello_m_b0      | A0123             |
+ hello_m_b1      | A0123             |
+ hello_m2_b0     | A0123             |
+ hello_m2_b1     | A0123             |
+ hello_m3        | A0123             |
+(10 rows)
+
+===============
+--In the above , we have done 4 conditions of projections
+--Replication with ksafe 1
+--Replication with ksafe 0
+--Segmentation with ksafe 1
+--Segmentation with ksafe 0
+
+=====
+-- The other way of creating the projection in vertica is by running the Database Designer(DBD)
+-- Two modes to run in DBD, incremental mode and comprehensive mode
+--when DBD is run for first time comprehensive mode is preferred
+--In incremental mode, it will not delete any previous unoptimized projections and it will create the projection based on the query given
+--In comprehensive mode, it will delete any previous unoptimized projections and it will create the projection for all tables present under the schema
+=======
